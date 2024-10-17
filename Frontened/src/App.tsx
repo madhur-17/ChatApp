@@ -1,30 +1,12 @@
-import { useEffect, useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import Home from "./Pages/Home/Home"
+
+
 
 function App() {
-  const [count, setCount] = useState(0)
-
-  useEffect(()=>{
-    async function fetchData(){
-      
-      const data =await fetch("");
-      //const dt=data.json();
-      console.log(data)
-    }
-    console.log(1)
-    fetchData()
-  },[])
-
   return (
-    <>
-      <div>
-        {count}
-        <button onClick={()=>{setCount(count+1)}}>Click</button>
-      </div>
-      
-    </>
+    <div className="flex h-screen justify-center items-center p-4">
+      <Home/>
+    </div>
   )
 }
 
