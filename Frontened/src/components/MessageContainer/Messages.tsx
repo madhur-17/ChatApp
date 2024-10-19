@@ -1,9 +1,14 @@
+import MessageTemplate from "./MessageTemplate"
 
 
 const Messages = () => {
   return (
-    <div>
-      
+    <div className="custom-scrollbar overflow-auto">
+      <MessageTemplate/>
+      <MessageTemplate/>
+      <MessageTemplate/>
+      <MessageTemplate/>
+      <MessageTemplate/>
     </div>
   )
 }

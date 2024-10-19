@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom"
 
 
 const SignIn = () => {
@@ -39,7 +40,7 @@ const SignIn = () => {
                             <input type="password" className="grow" placeholder="Password" />
                         </label>
                     </div>
-                    <a href="#" className="mt-2 text-gray-900 link">Don't have account??</a>
+                    <Link to={"/signup"} className="mt-2 text-gray-900 link">Don't have account??</Link>
 
                     <button className="btn mt-4">Submit</button>
                 </form>
