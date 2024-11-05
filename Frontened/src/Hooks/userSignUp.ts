@@ -1,9 +1,12 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { InputType } from "../Types/Types";
 import toast from "react-hot-toast";
+import { AuthContext } from "../context/AuthContext";
 
 const useSignUp=()=>{
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [loading,setloading]=useState(false);
+    const {setAuthUser}=useContext(AuthContext)
     
     const signup=async(props:InputType)=>{
         const res=handleErrors(props);
@@ -11,6 +14,7 @@ const useSignUp=()=>{
         
         try{
             setloading(true);
+           
             const data=await fetch("api/auth/signup",{
                 method:"POST",
                 headers:{
@@ -18,13 +22,20 @@ const useSignUp=()=>{
                 },
                 body:JSON.stringify(props)
             })
+            
             if(!data.ok)
                 throw new Error("Signup failed")
+          
             const response=await data.json();
-            console.log(response);
+            
+            localStorage.setItem("chat-user",JSON.stringify(response));
+            setAuthUser(response);
+            
         }
-        catch(error){
-            toast.error("Invalid")
+        
+        catch (_e) {
+            console.log(_e);
+            toast.error("Invalid");
         }
         finally{
             setloading(false)
@@ -32,7 +43,7 @@ const useSignUp=()=>{
     }
    
 
-    return {signup,loading};
+    return {signup};
 
 }
 

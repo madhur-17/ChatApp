@@ -16,7 +16,7 @@ const SignUp = () => {
           
     })
    
-    const {signup,loading} =useSignUp();
+    const {signup} =useSignUp();
 
     const handleChange=(field: keyof InputType,e:React.ChangeEvent<HTMLInputElement>)=>{
         setinputData({...inputData,[field]:e.target.value})
@@ -29,6 +29,7 @@ const SignUp = () => {
     const handleSubmit=(e:React.FormEvent<HTMLFormElement>)=>{
         e.preventDefault();
         signup(inputData);
+        
         
     }
   return (
