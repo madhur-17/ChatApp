@@ -1,13 +1,14 @@
 import { useEffect, useRef } from "react";
 import useGetMessages from "../../Hooks/useGetMessages"
 import MessageTemplate from "./MessageTemplate"
+import useListenMessages from "../../Hooks/useListenMessages";
 
 
 const Messages = () => {
   const {messages}=useGetMessages();
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const lastMessage=useRef<any>();
-
+  useListenMessages();
   useEffect(()=>{
     lastMessage.current?.scrollIntoView({behavior:"smooth"})
   },[messages])

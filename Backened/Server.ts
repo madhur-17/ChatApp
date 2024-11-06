@@ -10,11 +10,12 @@ import userRoutes from "./routes/userRoutes"
 
 
 import connect from "./db/connect";
+import { app, server } from "./socket/socket"
 
 dotenv.config()
 
 const PORT=process.env.Port || 5000;
-const app=express();
+
 app.use(express.json());// parse incoming request with json payloads
 app.use(cookieParser());
 
@@ -29,7 +30,7 @@ app.use('/api/users',userRoutes);
 
 
 
-app.listen(PORT, ()=>{
-
-  connect()
-  console.log(`Server Started At Port ${PORT}`)})
+server.listen(PORT, ()=>{
+    connect()
+  console.log(`Server Started At Port ${PORT}`)
+})

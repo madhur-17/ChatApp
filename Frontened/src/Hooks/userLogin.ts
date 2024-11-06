@@ -20,7 +20,7 @@ const useLogin=()=>{
                 body:JSON.stringify(props)
             })
             const data=await res.json();
-            console.log(data);
+            
             if(data.message=="Incorrect credentials"){
                 toast.error("Incorrect");
                 return;

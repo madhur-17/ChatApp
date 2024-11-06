@@ -1,6 +1,7 @@
 import { Request,Response } from "express"
 import Conversation from "../models/conversationMode";
 import Message from "../models/messagemodels";
+import { getReceiverSocketId, io } from "../socket/socket";
 
 
 
@@ -33,6 +34,13 @@ export const sendMessage=async(req:Request,res:Response)=>{
             conservation.messages.push(newmessage._id);
             await conservation.save();
         }
+
+        const receiverSocketId = getReceiverSocketId(receiverId);
+		if (receiverSocketId) {
+			// io.to(<socket_id>).emit() used to send events to specific client
+			io.to(receiverSocketId).emit("newMessage", newmessage);
+		}
+
         res.status(200).json(newmessage)
     }
     catch(error){
@@ -53,6 +61,8 @@ export const getMessage=async(req:Request,res:Response)=>{
         res.status(200).json([])
         return;
     }
+
+    
     res.status(200).json(conversation.messages)
    }
    catch(error){
