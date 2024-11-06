@@ -1,10 +1,36 @@
+import { useState } from "react"
+
 ;
+import useConversation from "../../zustand/useConversation";
+import useGetConversations from "../../Hooks/useGetConversations";
+import toast from "react-hot-toast";
 const SearchInput = () => {
+  const [search,setSearch]=useState("");
+  const {setSelectedConversation}=useConversation();
+  const {conv}=useGetConversations();
+
+  const handleSubmit=(e:React.FormEvent<HTMLFormElement>)=>{
+    e.preventDefault();
+    if(!search) return;
+    if(search.length<2) {
+      toast.error("Enter min 2 words");
+      return;
+    }
+    const con=conv.find(c=>c.fullName.toLowerCase().includes(search.toLowerCase()));
+    if(con){
+      setSelectedConversation(con);
+      setSearch("");
+    }
+    else return toast.error("No User");
+    
+  }
   return (
-    <form className="flex items-center p-2 rounded-3xl ">
+    <form className="flex items-center p-2 rounded-3xl " onSubmit={handleSubmit}>
     <input 
       type="text" 
       placeholder="Search" 
+      value={search}
+      onChange={e=>setSearch(e.target.value)}
       className=" p-3 m-2 rounded-3xl bg-white outline-none focus:ring-2 focus:ring-blue-400" 
     />
     <button type="submit" className="p-3 rounded-full bg-blue-500 hover:bg-blue-600 transition">

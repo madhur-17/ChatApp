@@ -8,7 +8,7 @@ export const getAllUsers=async(req:Request,res:Response)=>{
         _id:{
             $ne:userId
         }
-    })
+    }).select("fullName profilePic userName _id")
 
     res.status(200).json(allUsers);
 }

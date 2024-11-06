@@ -4,8 +4,7 @@ import toast from "react-hot-toast";
 import { AuthContext } from "../context/AuthContext";
 
 const useSignUp=()=>{
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const [loading,setloading]=useState(false);
+     const [loading,setloading]=useState(false);
     const {setAuthUser}=useContext(AuthContext)
     
     const signup=async(props:InputType)=>{
@@ -27,9 +26,9 @@ const useSignUp=()=>{
                 throw new Error("Signup failed")
           
             const response=await data.json();
-            
-            localStorage.setItem("chat-user",JSON.stringify(response));
-            setAuthUser(response);
+           
+            localStorage.setItem("chat-user",JSON.stringify(response._id));
+            setAuthUser(response._id);
             
         }
         
@@ -43,7 +42,7 @@ const useSignUp=()=>{
     }
    
 
-    return {signup};
+    return {loading,signup};
 
 }
 

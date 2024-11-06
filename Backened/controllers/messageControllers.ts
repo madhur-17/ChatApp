@@ -18,7 +18,8 @@ export const sendMessage=async(req:Request,res:Response)=>{
 
         if(!conservation){
             conservation=await Conversation.create({
-                participants:[senderId,receiverId]
+                participants:[senderId,receiverId],
+                messages: [],
             })
         }
         const newmessage=new Message({
@@ -30,6 +31,7 @@ export const sendMessage=async(req:Request,res:Response)=>{
 
         if(newmessage){
             conservation.messages.push(newmessage._id);
+            await conservation.save();
         }
         res.status(200).json(newmessage)
     }
@@ -41,12 +43,12 @@ export const sendMessage=async(req:Request,res:Response)=>{
 export const getMessage=async(req:Request,res:Response)=>{
    try{
     const {id : receiverId }=req.params;
-    const senderId=req.user._id;
+    const senderId=req.user?._id;
 
     const conversation=await Conversation.findOne({
         participants:{$all:[senderId,receiverId]}
     }).populate("messages");
-
+    
     if(!conversation){
         res.status(200).json([])
         return;

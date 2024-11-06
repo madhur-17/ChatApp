@@ -19,7 +19,7 @@ export const signupUser=async(req:Request,res:Response):Promise<void>=>{
      const salt=await bcrypt.genSalt(10);
      const hashpass=await bcrypt.hash(password,salt);
      
-     const profilepic=gender=="male"?`${process.env.PROFILE_BOY}username=${userName}`:process.env.PROFILE_GIRL+`username=${userName}`;
+     const profilepic=gender=="male"?`${process.env.PROFILE_BOY}seed=${fullName}`:process.env.PROFILE_GIRL+`seed=${fullName}`;
      const newUser = new User({ fullName, userName, password:hashpass, gender, profilePic:profilepic });
      await newUser.save();
      gnerateToken(newUser._id,res)
@@ -43,7 +43,7 @@ export const signinUser=async(req:Request,res:Response):Promise<void>=>{
 
 
         if (!passIsCorrect||!user) {
-            res.status(401).json({ message: "Incorrect credentials", success: false });
+            res.json({ message: "Incorrect credentials", success: false });
             return;
         }
         gnerateToken(user._id,res)

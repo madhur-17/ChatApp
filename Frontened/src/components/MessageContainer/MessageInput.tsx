@@ -1,14 +1,30 @@
+import { useState } from "react"
+import useSendMessage from "../../Hooks/useSendMessage";
 
 
 const MessageInput = () => {
+  const [message,setMessage]=useState("");
+  const sendMessage =useSendMessage();
+
+  const handleSubmit=async(e:React.FormEvent<HTMLFormElement>)=>{
+      e.preventDefault();
+      if(!message) return;
+     await sendMessage(message);
+     setMessage("");
+  }
+
   return (
-    <form className="flex items-center w-full gap-x-2 px-4 mb-4">
+    <form className="flex items-center w-full gap-x-2 px-4 mb-0 "
+    onSubmit={handleSubmit}
+    >
     <input 
       type="text" 
-      placeholder="Message..." 
+      placeholder="Message..."
+      value={message}
+      onChange={e=>setMessage(e.target.value)} 
       className="bg-slate-600 text-white rounded-2xl w-10/12 p-3 focus:outline-none focus:ring-2 focus:ring-green-500"
     />
-    <button 
+    <button type="submit"
    
       className="bg-green-600 hover:bg-green-700 rounded-full flex items-center justify-center w-12 h-12"
     >

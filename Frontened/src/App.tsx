@@ -4,6 +4,7 @@ import SignIn from "./Pages/SignIn/SignIn"
 import SignUp from "./Pages/SignUP/SignUp"
 import { useContext } from "react"
 import { AuthContext } from "./context/AuthContext"
+//import NameSearch from "./Pages/Practice"
 
 
 
@@ -15,6 +16,7 @@ function App() {
         <Route path="/" element={authUser?<Home/>:<Navigate to={"/signin"}/>} />
         <Route path="/signin" element={authUser?<Navigate to="/"/>:<SignIn/>} />
         <Route path="/signup" element={authUser?<Navigate to="/"/>:<SignUp/>} />
+        {/*<Route path="/mad" element={<NameSearch/>}/>*/}
       </Routes>
     </div>
   )
